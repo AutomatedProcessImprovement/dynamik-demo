@@ -17,7 +17,7 @@ services:
       - queue
     restart: on-failure
     volumes:
-      - dynamik-data:/data
+      - ./dynamik-data:/data
 
   worker:
     build: ./dynamik-worker
@@ -40,17 +40,7 @@ services:
         max_attempts: 3
         window: 120s
     volumes:
-      - dynamik-data:/data
+      - ./dynamik-data:/data
 
   queue:
-    image: rabbitmq:3-management
-    ports: 
-      - 81:15672
-    healthcheck:
-      test: rabbitmq-diagnostics -q ping
-      interval: 30s
-      timeout: 30s
-      retries: 5
-
-volumes:
-  dynamik-data: 
+    image: rabbitmq:3
