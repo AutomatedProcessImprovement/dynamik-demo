@@ -1,0 +1,7 @@
+./dynamik-frontend/node_modules
+./dynamik-frontend/build
+./dynamik-frontend/.idea
+./dynamik-frontend/.git
+./dynamik-worker/.git
+./dynamik-worker/.idea
+./dynamik-worker/.venv

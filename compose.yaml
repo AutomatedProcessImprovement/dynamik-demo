@@ -1,0 +1,56 @@
+name: dynamik
+
+services:
+  frontend:
+    build: ./dynamik-frontend
+    ports:
+      - 80:3000
+    environment:
+      RABBITMQ_HOST: queue
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USER: guest
+      RABBITMQ_PASS: guest
+      LIVE_STATUS_EXCHANGE: status@dynamik
+      EXPERIMENTS_QUEUE: experiments@dynamik
+      BASE_DATA_PATH: /data
+    depends_on:
+      - queue
+    restart: on-failure
+    volumes:
+      - dynamik-data:/data
+
+  worker:
+    build: ./dynamik-worker
+    environment:
+      RABBITMQ_HOST: queue
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USER: guest
+      RABBITMQ_PASS: guest
+      LIVE_STATUS_EXCHANGE: status@dynamik
+      EXPERIMENTS_QUEUE: experiments@dynamik
+      BASE_DATA_PATH: /data
+    depends_on:
+      - queue
+    deploy:
+      mode: replicated
+      replicas: 5
+      restart_policy:
+        condition: on-failure
+        delay: 60s
+        max_attempts: 3
+        window: 120s
+    volumes:
+      - dynamik-data:/data
+
+  queue:
+    image: rabbitmq:3-management
+    ports: 
+      - 81:15672
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 30s
+      retries: 5
+
+volumes:
+  dynamik-data: 
