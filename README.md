@@ -1,6 +1,6 @@
 # dynamik: A tool for performance drift detection in business processes
 
-This repository contains everything needed to deploy an instance of dynamik using containers.
+This repository contains everything needed to deploy an instance of *dynamik* using containers.
 
 ## Online demonstrator
 
