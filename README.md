@@ -2,13 +2,17 @@
 
 This repository contains everything needed to deploy an instance of dynamik using containers.
 
+## Online demonstrator
+
+You may try *dynamik* online [**here**](http://dynamik.cloud.ut.ee).
+
 ## Requirements
 
   - Docker (version tested: 27.1.1)
 
 ## Deployement instructions
 
-The repository already contains everything needed for deplying a fully functional version of dynamik.
+The repository already contains everything needed for deplying a fully functional version of *dynamik*.
 For deploying your own instance:
   
   - Clone this repository with `git clone https://github.com/AutomatedProcessImprovement/dynamik-demo.git`
